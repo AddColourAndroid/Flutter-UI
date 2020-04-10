@@ -41,6 +41,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var isAfrica = true;
+
+  void updateButtonBackground(bool isClicked) {
+    setState(() {
+      isAfrica = isClicked;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,105 +100,29 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                    height: 72.0,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: Colors.brown,
-                      elevation: 0.0,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            height: 64.0,
-                            width: 64.0,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              color: Color.fromRGBO(211, 211, 211, 211),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Image.network(
-                                    'https://purepng.com/public/uploads/large/map-of-africa-eqe.png'),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'AFRICA'.toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Text(
-                              '10',
-                              style: TextStyle(
-                                  color: Colors.white30, fontSize: 18.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  child: GestureDetector(
+                    onTap: () {
+                      updateButtonBackground(true);
+                    },
+                    child: horizontalButtons(
+                        context,
+                        'Africa',
+                        'https://purepng.com/public/uploads/large/map-of-africa-eqe.png',
+                        10,
+                        isAfrica ? Colors.brown : Color(0xffa1887f)),
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    height: 72.0,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: Color(0xffa1887f),
-                      elevation: 0.0,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            height: 64.0,
-                            width: 64.0,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              color: Color.fromRGBO(211, 211, 211, 211),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Image.network(
-                                    'https://i0.wp.com/freepngimages.com/wp-content/uploads/2014/09/australia.png?fit=571%2C494'),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'australia'.toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Text(
-                              '7',
-                              style: TextStyle(
-                                  color: Colors.white30, fontSize: 18.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  child: GestureDetector(
+                    onTap: () {
+                      updateButtonBackground(false);
+                    },
+                    child: horizontalButtons(
+                        context,
+                        'Australia',
+                        'https://i0.wp.com/freepngimages.com/wp-content/uploads/2014/09/australia.png?fit=571%2C494',
+                        7,
+                        !isAfrica ? Colors.brown : Color(0xffa1887f)),
                   ),
                 ),
               ],
@@ -266,6 +198,58 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(
           Icons.error_outline,
           color: Colors.red,
+        ),
+      ),
+    );
+  }
+
+  // Horizontal Buttons
+  Widget horizontalButtons(BuildContext context, String name, String imageUrl,
+      int number, Color color) {
+    return Container(
+      height: 72.0,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        color: color,
+        elevation: 0.0,
+        child: Row(
+          children: <Widget>[
+            Container(
+              height: 64.0,
+              width: 64.0,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromRGBO(211, 211, 211, 211),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Image.network(imageUrl),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  name.toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14.0,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Text(
+                '$number',
+                style: TextStyle(color: Colors.white30, fontSize: 18.0),
+              ),
+            ),
+          ],
         ),
       ),
     );
