@@ -70,11 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Container(
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -87,10 +87,116 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Container(
+          ),
+          Container(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    height: 72.0,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Colors.brown,
+                      elevation: 0.0,
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            height: 64.0,
+                            width: 64.0,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              color: Color.fromRGBO(211, 211, 211, 211),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Image.network(
+                                    'https://purepng.com/public/uploads/large/map-of-africa-eqe.png'),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'AFRICA'.toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Text(
+                              '10',
+                              style: TextStyle(
+                                  color: Colors.white30, fontSize: 18.0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 72.0,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Color(0xffa1887f),
+                      elevation: 0.0,
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            height: 64.0,
+                            width: 64.0,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              color: Color.fromRGBO(211, 211, 211, 211),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Image.network(
+                                    'https://i0.wp.com/freepngimages.com/wp-content/uploads/2014/09/australia.png?fit=571%2C494'),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'australia'.toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Text(
+                              '7',
+                              style: TextStyle(
+                                  color: Colors.white30, fontSize: 18.0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -99,8 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget circularImage(
       BuildContext context, double height, double width, borderRadius) {
     return CachedNetworkImage(
-      imageUrl:
-      'https://i.pinimg.com/originals/aa/4a/c5/aa4ac5f3dd5a61a847452ef44398282b.jpg',
+      imageUrl: 'https://pescart.com/wp-content/uploads/2017/03/DSC06344.jpg',
       imageBuilder: (context, imageProvider) => Container(
         width: width,
         height: height,
