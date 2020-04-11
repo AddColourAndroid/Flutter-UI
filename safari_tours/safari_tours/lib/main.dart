@@ -43,9 +43,39 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var isAfrica = true;
 
+  var mImageList = [
+    ImageViewList(
+        'https://i.pinimg.com/originals/7f/af/ed/7fafed5923e197b48f2f63fd3257dbbd.jpg'),
+    ImageViewList(
+        'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fnicoletrilivas%2Ffiles%2F2018%2F11%2FCheetah-44.jpg'),
+    ImageViewList(
+        'https://cosmos-production-assets.s3.amazonaws.com/file/spina/photo/15850/image_180724-rhino-thumb.jpg'),
+  ];
+
   void updateButtonBackground(bool isClicked) {
     setState(() {
       isAfrica = isClicked;
+      mImageList.clear();
+
+      if (isAfrica) {
+        mImageList = [
+          ImageViewList(
+              'https://i.pinimg.com/originals/7f/af/ed/7fafed5923e197b48f2f63fd3257dbbd.jpg'),
+          ImageViewList(
+              'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fnicoletrilivas%2Ffiles%2F2018%2F11%2FCheetah-44.jpg'),
+          ImageViewList(
+              'https://cosmos-production-assets.s3.amazonaws.com/file/spina/photo/15850/image_180724-rhino-thumb.jpg'),
+        ];
+      } else {
+        mImageList = [
+          ImageViewList(
+              'https://cosmos-production-assets.s3.amazonaws.com/file/spina/photo/15850/image_180724-rhino-thumb.jpg'),
+          ImageViewList(
+              'https://i.pinimg.com/originals/7f/af/ed/7fafed5923e197b48f2f63fd3257dbbd.jpg'),
+          ImageViewList(
+              'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fnicoletrilivas%2Ffiles%2F2018%2F11%2FCheetah-44.jpg'),
+        ];
+      }
     });
   }
 
@@ -126,6 +156,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+              child: Container(
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: mImageList,
+                ),
+              ),
             ),
           ),
         ],
@@ -226,7 +267,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Color.fromRGBO(211, 211, 211, 211),
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Image.network(imageUrl),
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 40.0,
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) =>
+                        imagePlaceHolder(context, 40.0, 40.0),
+                    errorWidget: (context, url, error) =>
+                        loadingWidget(context, 40.0, 40.0),
+                  ),
                 ),
               ),
             ),
@@ -248,6 +306,76 @@ class _MyHomePageState extends State<MyHomePage> {
                 '$number',
                 style: TextStyle(color: Colors.white30, fontSize: 18.0),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ImageViewList extends StatelessWidget {
+  final String imageUrl;
+
+  ImageViewList(this.imageUrl);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Stack(
+          children: <Widget>[
+            CachedNetworkImage(
+              imageUrl: imageUrl,
+              imageBuilder: (context, imageProvider) => Container(
+                width: 350.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30.0),
+                  ),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              placeholder: (context, url) => Container(
+                width: 350.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.amber[800],
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => Container(
+                width: 350.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              color: Color.fromRGBO(0, 0, 0, 0.20),
             ),
           ],
         ),
